@@ -1,0 +1,174 @@
+<!Doctype html>
+<html>
+    <head>
+    	<meta charset="UTF-8">
+    	<link ref="stylesheet" href="body.css" type="text/css" />
+    	<style type="text/css">
+    		body {
+    			background: #f5f5f5;
+    		}
+    		h1{
+    			font-family: Arial;
+    			padding: 10px;
+    		}
+    		h2{
+    			font-family: Arial;
+    			padding: 10px;
+    			color: #1bd4d4;
+    		}
+    		.info{
+    			font-size: 15px;
+    			padding: 10px;
+    			font-family: Arial;
+    		}
+    		#answer, #answer2 {
+    			padding-left: 20px;
+    			color:gray;
+    			font-weight: 700;
+    			font-family: Arial;
+    		}
+    		.ans-sec {
+    			padding: 30px 0;
+    			font-size: 30px;
+    		}    	  		
+    		input {
+    			width: 200px;
+    			font-size: 20px;
+    			border-radius: 30px;
+    			border: none;
+    			padding: 10px 30px; 
+    		}
+    		input:focus, .select-css {
+    			outline: none;
+    		}
+    		button {
+    			border-radius: 30px;
+    			padding: 10px 30px;
+    			background: #31def9;
+    			border: none;
+    			font-size: 20px;
+    			cursor: pointer;
+    		}
+    		button:focus {
+    			outline: none;
+    		}
+    		button:hover {
+    			background: #31de89; ;
+    		}
+    		.select-css {
+			display: block;
+			font-size: 16px;
+			font-family: sans-serif;
+			font-weight: 700;
+			color: #444;
+			line-height: 1.3;
+			padding: .6em 1.4em .5em .8em;
+			width: 100%;
+			max-width: 20%; 
+			box-sizing: border-box;
+			margin: 0;
+			border: 1px solid #aaa;
+			box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
+			border-radius: 30px;
+			-moz-appearance: none;
+			-webkit-appearance: none;
+			appearance: none;
+			background-color: #fff;	
+			margin-bottom:20px; 
+			border: none;
+			}		
+    		
+	
+    	</style>
+    </head>
+	<body onload="readyToRun()">		
+		<h1>Encryption and  Decryption։</h1>
+		<h2><b>program created by Samvel Antapyan HTT924-1</b></h2>
+		<div>
+		<label>Select Code / Ընտրել բանալին</label><select id="codeSelect" class="select-css">	
+			</select>
+		</div>
+		<div class="info">Enter the text to be encrypted / Մուտքագրել տեքստը, որը ցանկանում եք կոդավորել</div>
+		<input type="text" name="" id="inp" >
+		<button onclick="caesarShift()" type="button" class="btn5"> code with ceaser </button>
+		<div class="ans-sec">
+			<span>Encryption of your code is  / Կոդավորված տեքստը՝</span><span id="answer"></span>
+		</div>
+		<div class="info">Enter the text to be decrypted / Մուտքագրել տեքստը, որը ցանկանում եք վերծանել</div>
+		<input type="text" name="" id="inp2" >
+		<button onclick="caesarShiftDe()" type="button" class="btn5"> Decode with ceaser </button>
+		<div class="ans-sec">
+			<span>Decryption of your code is  / Վերծանված տեքստը՝ </span> <span id="answer2"></span>
+		</div>
+		<script type="text/javascript">	
+		function readyToRun(){
+		let select = document.getElementById("codeSelect")
+		for (var i = 1; i <= 26; i++) {
+
+			let option = document.createElement("option")
+			option.value = i
+			option.innerText = i
+			if (i === 3) {
+				option.selected = true
+			}		
+			select.appendChild(option)
+			}
+		}
+	 caesarShift = ()=> {
+	 	let q= + document.getElementById("codeSelect").value
+		let str = document.getElementById("inp").value;
+		let ans = document.getElementById("answer");	
+		  if (q < 0) {
+		    return caesarShift(str, q + 26);
+		  }		
+		  var result = "";	
+		  for (var i = 0; i < str.length; i++) {		  
+		    var charOfCode = str[i];		  
+		    if (charOfCode.match(/[a-z]/i)) {		    
+		      var code = str.charCodeAt(i);		  
+		      if (code >= 65 && code <= 90) {
+		        charOfCode = String.fromCharCode(((code - 65 + q) % 26) + 65);
+		      }		      
+		      else if (code >= 97 && code <= 122) {
+		        charOfCode = String.fromCharCode(((code - 97 + q) % 26) + 97);
+		      }
+		    }
+		    
+		    result += charOfCode;
+		  }
+		
+		 ans.innerText = result
+		  return result;
+		};
+
+		caesarShiftDe = ()=> {
+		let q= + document.getElementById("codeSelect").value
+		let str = document.getElementById("inp2").value;
+		let ans = document.getElementById("answer2");			
+		  if (q < 0) {
+		    return caesarShift(str, q + 26);
+		  }
+		  var result = "";
+		
+		  for (var i = 0; i < str.length; i++) {		    
+		    var charOfCode = str[i];		   
+		    if (charOfCode.match(/[a-z]/i)) {		      
+		      var code = str.charCodeAt(i);		      
+		      if (code >= 65 && code <= 90) {
+		        charOfCode = String.fromCharCode(((code - 65 - q) % 26) + 65);		   
+		      }
+		    
+		      else if (code >= 97 && code <= 122) {		     
+		        charOfCode = String.fromCharCode((code -97 - q + 26) %26 + 97 );		   
+		      }
+		    }
+		   
+		    result += charOfCode;
+		  }
+		 ans.innerText = result
+		  return result;
+		};
+
+	</script>
+	</body>
+</html>
